@@ -14,6 +14,15 @@ python -m SimpleHTTPServer
       var txt, play, gameTxt;
       var mouseTarget, clicked, mouseBp;
 
+      var audioPath = "assets/";
+      var sounds = [
+          {id:"sonic", src:"sonic.mp3"},
+          {id:"exterminate", src:"exterminate.mp3"},
+          {id:"theme", src:"theme.mp3"}
+      ];
+      createjs.Sound.alternateExtensions = ["mp3"];
+
+
       function init() {
         canvas = document.getElementById('canvas');
         stage = new createjs.Stage(canvas);
@@ -35,8 +44,14 @@ python -m SimpleHTTPServer
         image.onload = createDaleks;
 
         mouseBp = new createjs.Bitmap('assets/sonic.png');
+        createjs.Sound.registerSounds(sounds, audioPath);   
+        createjs.Sound.addEventListener("fileload", handleLoad);
       };
-
+      
+      function handleLoad(event) {
+          createjs.Sound.play('theme', {loop:-1});
+      }
+      
       function moveHandler() {
         mouseBp.x = stage.mouseX;
         mouseBp.y = stage.mouseY;
@@ -64,7 +79,7 @@ python -m SimpleHTTPServer
         txt.y = 20;
         stage.addChild(txt);
         stage.addChild(mouseBp);
-        play = true;
+        gameOver();
         createjs.Ticker.addEventListener('tick', handleTick);
       };
 
@@ -91,6 +106,7 @@ python -m SimpleHTTPServer
           var tempText = String(mouseTarget.name);
           tempText = tempText.substring(0,4);
           if (tempText!=null && tempText=='ship') {
+            createjs.Sound.play('sonic');
             resetEnemy(mouseTarget);
             score += 50;
             clicked = false;
@@ -131,6 +147,7 @@ python -m SimpleHTTPServer
       };
 
       function gameOver() {
+        createjs.Sound.play('exterminate');
         gameTxt = new createjs.Text('Game Over\n\n', '36px Ariel', '#fff');
         gameTxt.text += 'Click to play again';
         gameTxt.textAlign = "center";
@@ -138,6 +155,7 @@ python -m SimpleHTTPServer
         gameTxt.y = canvas.height/3;
         stage.addChild(gameTxt);
         play = false;
+        score = 0;
         var l = bmpList.length;
         for (var i=0;i<l;i++) {
           var bmp = bmpList[i];
