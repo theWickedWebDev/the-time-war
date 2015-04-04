@@ -1,0 +1,153 @@
+<!--
+python -m SimpleHTTPServer
+-->
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My First Game with Easel</title>
+    <script src="http://code.createjs.com/createjs-2014.12.12.min.js"></script>
+
+    <script>
+      var canvas, stage, bg, score, bitmap;
+      var bmpList = [];
+      var txt, play, gameTxt;
+      var mouseTarget, clicked, mouseBp;
+
+      function init() {
+        canvas = document.getElementById('canvas');
+        stage = new createjs.Stage(canvas);
+        score = 0;
+
+        stage.canvas.style.cursor = 'none';
+        
+        stage.addEventListener('stagemousemove', moveHandler);
+
+        canvas.onmousedown = onMouseDown;
+        canvas.onmouseup = onMouseUp;
+
+        bg = new Image();
+        bg.src = 'assets/space.jpg';
+        bg.onload = setBG;
+
+        var image = new Image();
+        image.src = 'assets/dalek.png';
+        image.onload = createDaleks;
+
+        mouseBp = new createjs.Bitmap('assets/sonic.png');
+      };
+
+      function moveHandler() {
+        mouseBp.x = stage.mouseX;
+        mouseBp.y = stage.mouseY;
+      };
+
+      function createDaleks(event) {
+        var image = event.target;
+        var container = new createjs.Container();
+        stage.addChild(container);
+        var l = 5;
+        bmpList = [];
+        for (i=0;i<l;i++) {
+          bitmap = new createjs.Bitmap(image);
+          container.addChild(bitmap);
+          bitmap.name = "ship" + i;
+          resetEnemy(bitmap);
+          bitmap.regX = bitmap.image.width/2|0;
+          bitmap.regY = bitmap.image.height/2|0;
+          bitmap.mouseEnabled = true;
+          bmpList.push(bitmap)
+        }
+        txt = new createjs.Text('Score: 0', '24px Ariel', '#fff');
+        txt.textBaseline = 'top';
+        txt.x = 500;
+        txt.y = 20;
+        stage.addChild(txt);
+        stage.addChild(mouseBp);
+        play = true;
+        createjs.Ticker.addEventListener('tick', handleTick);
+      };
+
+      function setBG(event) {
+        var bgrnd = new createjs.Bitmap(bg);
+        stage.addChild(bgrnd);
+        stage.update();
+        createDaleks;
+      };
+
+      function resetEnemy(ship) {
+        ship.x = canvas.width + Math.random()*300;
+        ship.y = canvas.height * Math.random();
+        ship.speed = (Math.random()*5)+2;
+      };
+
+      function handleTick() {
+        //checking clicks
+        if (!clicked && stage.mouseX && stage.mouseY) {
+          mouseTarget = stage.getObjectUnderPoint(stage.mouseX,stage.mouseY); 
+        }
+
+        if (clicked && mouseTarget) {
+          var tempText = String(mouseTarget.name);
+          tempText = tempText.substring(0,4);
+          if (tempText!=null && tempText=='ship') {
+            resetEnemy(mouseTarget);
+            score += 50;
+            clicked = false;
+          }
+        }
+
+        //moving daleks
+        if (play == true) {
+          var l = bmpList.length;
+          for (var i=0;i<l;i++) {
+            var bmp = bmpList[i];
+            if (bmp.x > -100) {
+              bmp.x -= bmp.speed;
+            } else {
+              gameOver();
+              console.log('game over');
+            }
+          }
+        }
+        txt.text = 'Score: ' + score;
+        stage.update();
+        canvas.onclick = handleClick;
+      };
+
+      function handleClick() {
+        canvas.onclick = null;
+        stage.removeChild(gameTxt);
+        play = true;
+      };
+
+      function onMouseDown() {
+        if(!e){var e = window.event;}
+        clicked = true;
+      };
+
+      function onMouseUp() {
+        clicked = false;
+      };
+
+      function gameOver() {
+        gameTxt = new createjs.Text('Game Over\n\n', '36px Ariel', '#fff');
+        gameTxt.text += 'Click to play again';
+        gameTxt.textAlign = "center";
+        gameTxt.x = canvas.width/2;
+        gameTxt.y = canvas.height/3;
+        stage.addChild(gameTxt);
+        play = false;
+        var l = bmpList.length;
+        for (var i=0;i<l;i++) {
+          var bmp = bmpList[i];
+          resetEnemy(bmp);
+        }
+        stage.update();
+      };
+    </script>
+  </head>
+  <body onload="init();">
+    <canvas id="canvas" width="800" height="500"></canvas>
+  </body>
+</html>
