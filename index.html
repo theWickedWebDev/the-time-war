@@ -17,7 +17,7 @@ python -m SimpleHTTPServer
 
       var canvas, stage, bg, score, bitmap;
       var bmpList = [];
-      var txt, play, gameTxt;
+      var play, gameTxt;
       var mouseTarget, clicked, mouseBp;
       var explosion;
 
@@ -31,6 +31,7 @@ python -m SimpleHTTPServer
 
       function init() {
         canvas = document.getElementById('canvas');
+        scoreP = document.getElementById('score');
         stage = new createjs.Stage(canvas);
         score = 0;
 
@@ -82,10 +83,6 @@ python -m SimpleHTTPServer
           bitmap.mouseEnabled = true;
           bmpList.push(bitmap)
         }
-        txt = new createjs.Text('Score: 0', '24px Ariel', '#fff');
-        txt.textBaseline = 'top';
-        txt.x = 500;
-        txt.y = 20;
         stage.addChild(txt);
         stage.addChild(mouseBp);
         gameOver();
@@ -145,6 +142,7 @@ python -m SimpleHTTPServer
             // resets
             resetEnemy(mouseTarget);
             score += 50;
+            scoreP.innerText = "Score: " + score;
             clicked = false;
           }
         }
@@ -162,7 +160,6 @@ python -m SimpleHTTPServer
             }
           }
         }
-        txt.text = 'Score: ' + score;
         stage.update();
         canvas.onclick = handleClick;
       };
@@ -202,6 +199,7 @@ python -m SimpleHTTPServer
     </script>
   </head>
   <body onload="init();">
+    <p id="score">Score: 0</p>
     <canvas id="canvas" width="800" height="600"></canvas>
   </body>
 </html>
