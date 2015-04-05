@@ -1,7 +1,9 @@
+//main game loop
 function handleTick() {
   if (play == true) {
 
     rollForCompanion();
+    rollForTardis();
 
     //checking clicks and storing what was clicked
     if (!clicked && stage.mouseX && stage.mouseY) {
@@ -12,7 +14,6 @@ function handleTick() {
     if (clicked && mouseTarget) {
       var tempText = String(mouseTarget.name);
       tempText = tempText.substring(0,5);
-
       switch(tempText) {
         case 'dalek':
             createjs.Sound.play('sonic');
@@ -24,6 +25,10 @@ function handleTick() {
             createjs.Sound.play('sonic');
             addToScore(50*numOfDaleks);
             useCompanion(mouseTarget);
+          break;
+        case 'tardi':
+            createjs.Sound.play('sonic');
+            useTardis(mouseTarget);
           break;
       }
 
@@ -38,7 +43,8 @@ function handleTick() {
         bmp.x -= bmp.speed;
       } else {
         createjs.Sound.play('exterminate');
-        resetGame('Game Over!');
+        resetEnemy(bmp);
+        addToLives(-1);
       }
     }
 
@@ -47,6 +53,13 @@ function handleTick() {
       companion.x -= companion.speed;
     } else {
       removeCompanion(companion);
+    }
+
+    //moving tardis
+    if (tardis && tardis.x > -20) {
+      tardis.x -= tardis.speed;
+    } else {
+      removeTardis(tardis);
     }
   }
   

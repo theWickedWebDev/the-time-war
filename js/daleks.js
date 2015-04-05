@@ -12,15 +12,15 @@ function createDaleks() {
     container.addChild(bitmap);
     bitmap.name = "dalek" + i;
     resetEnemy(bitmap);
+    randomSize(bitmap, 8);
     bitmap.regX = bitmap.image.width/2|0;
     bitmap.regY = bitmap.image.height/2|0;
     bitmap.mouseEnabled = true;
     bmpList.push(bitmap)
   }
-  
-  createjs.Ticker.addEventListener('tick', handleTick);
 };
 
+// sets explosion at mouseTarget coordinates
 function setExplosion() {
   explosion = new Image();
   explosion.src = 'assets/explosion.png';
@@ -50,8 +50,15 @@ function setExplosion() {
 function resetEnemy(enemy) {
   enemy.x = canvas.width + (Math.random()*300) + 100;
   enemy.y = (canvas.height - 100) * Math.random()+50;
+  randomSize(enemy, 8);
   enemy.speed = (Math.random()*5) + dalekSpeed;
 };
+
+function randomSize(character, amt) {
+  var charSize = (Math.floor(Math.random()*amt))/10;
+  character.scaleX = 1 + charSize;
+  character.scaleY = 1 + charSize;
+}
 
 function removeAllDaleks() {
   var l = bmpList.length;

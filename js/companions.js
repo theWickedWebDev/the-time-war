@@ -16,6 +16,7 @@ function createCompanion() {
   companion.regY = 0;
   companion.mouseEnabled = true;
   stage.update();
+  setSonic()
 };
 
 function useCompanion(companion) {

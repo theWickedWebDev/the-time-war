@@ -10,20 +10,21 @@ python -m SimpleHTTPServer
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <input type="number" min="0" max="100" value="5" id="dalekCount" onChange="buildSettings();">
     <p id="level">Level: 1</p>
     <p id="score">Score: 0</p>
+    <img class="tardis-lives" src="assets/tardis.png">
+    <p id="lives">X 3</p>
     <canvas id="canvas" width="860" height="600"></canvas>
 
     <script src="http://code.createjs.com/createjs-2014.12.12.min.js"></script>
 
-    <script src="js/settings.js"></script>
     <script src="js/reset.js"></script>
     <script src="js/scoring.js"></script>
-    <script src="js/scripts.js"></script>
     <script src="js/inits.js"></script>
     <script src="js/inputs.js"></script>
     <script src="js/daleks.js"></script>
+    <script src="js/tardis.js"></script>
     <script src="js/companions.js"></script>
+    <script src="js/game.js"></script>
   </body>
 </html>

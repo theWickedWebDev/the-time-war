@@ -15,9 +15,6 @@ function handleKeyUp(event) {
 function handleClick() {
   canvas.onclick = null;
   stage.removeChild(gameTxt);
-
-  dalekCount = document.getElementById('dalekCount').value;
-  numOfDaleks = dalekCount || 5;
   
   play = true;
 };

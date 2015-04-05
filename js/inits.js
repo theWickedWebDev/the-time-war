@@ -1,8 +1,10 @@
 // defaults
-var numOfDaleks;
+var numOfDaleks = 5;
 var dalekSpeed = 1;
 var companionSpeed = 10;
 var companionRarity = 997; // 1-1000(not rare to rare)
+var tardisRarity = 9990;  // 1-10,000
+var lives = 3;
 
 var canvas, stage, bg, bitmap, container;
 var score = 0;
@@ -12,9 +14,13 @@ var mouseTarget, clicked, mouseBp, mouse;
 var explosion;
 var dalekImage;
 var companionImage, companion, companionOut;
+var tardisImage;
+var tardisImage, tardis, tardisOut;
+
 var level = 1;
 var queue = new createjs.LoadQueue();
 var audioPath = 'assets/';
+var scoreP, livesP;
 
 var sounds = [
     {id:'sonic', src:'sonic.mp3'},
@@ -23,7 +29,8 @@ var sounds = [
 ];
 
 var chars = [
-  {id: 'rose', src:'assets/rose.png'}
+  {id: 'rose', src:'assets/rose.png'},
+  {id: 'tardis', src:'assets/tardis.png'}
 ];
 
 var sonic = [
@@ -64,6 +71,7 @@ function loadingComplete() {
   // assigns canvas, stage and details
   canvas = document.getElementById('canvas');
   scoreP = document.getElementById('score');
+  livesP = document.getElementById('lives');
   levelP = document.getElementById('level');
   stage = new createjs.Stage(canvas);
   stage.canvas.style.cursor = 'none';
@@ -81,6 +89,9 @@ function loadingComplete() {
   // SHOULD CHANGE THIS TO TITLE SCREEN
   // sets first level
   resetGame('Click to Start!');
+
+  // create main game loop
+  createjs.Ticker.addEventListener('tick', handleTick);
 };
 
 function handleLoad(event) {
@@ -90,6 +101,6 @@ function handleLoad(event) {
 
 function moveHandler() {
   // keeps sonic at mouse
-  mouseBp.x = stage.mouseX - 5;
-  mouseBp.y = stage.mouseY - 5;
+  mouseBp.x = stage.mouseX;
+  mouseBp.y = stage.mouseY;
 };
