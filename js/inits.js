@@ -1,6 +1,8 @@
 // defaults
 var numOfDaleks = 5;
 var dalekSpeed = 5;
+var companionSpeed = 10;
+var companionRarity = 990; // 1-1000(not rare to rare)
 
 var canvas, stage, bg, score, bitmap;
 var bmpList = [];
@@ -8,7 +10,7 @@ var play, gameTxt;
 var mouseTarget, clicked, mouseBp, mouse;
 var explosion;
 var dalekImage;
-var roseImage, rose;
+var companionImage, companion, companionOut;
 
 var queue = new createjs.LoadQueue();
 
@@ -46,7 +48,7 @@ function start() {
   bg = queue.getResult('gallifrey');
   dalekImage = queue.getResult('dalek');
   mouse = queue.getResult('sonic');
-  roseImage = queue.getResult('rose');
+  companionImage = queue.getResult('rose');
 
   canvas.onmousedown = onMouseDown;
   canvas.onmouseup = onMouseUp;
