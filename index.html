@@ -31,6 +31,7 @@ python -m SimpleHTTPServer
 
       function init() {
         canvas = document.getElementById('canvas');
+        scoreP = document.getElementById('score');
         stage = new createjs.Stage(canvas);
         score = 0;
 
@@ -145,6 +146,7 @@ python -m SimpleHTTPServer
             // resets
             resetEnemy(mouseTarget);
             score += 50;
+            scoreP.innerText = score;
             clicked = false;
           }
         }
@@ -202,6 +204,7 @@ python -m SimpleHTTPServer
     </script>
   </head>
   <body onload="init();">
+    <p id="score"></p>
     <canvas id="canvas" width="800" height="600"></canvas>
   </body>
 </html>
