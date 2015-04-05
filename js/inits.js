@@ -2,7 +2,7 @@
 var numOfDaleks = 5;
 var dalekSpeed = 5;
 var companionSpeed = 10;
-var companionRarity = 990; // 1-1000(not rare to rare)
+var companionRarity = 998; // 1-1000(not rare to rare)
 
 var canvas, stage, bg, score, bitmap;
 var bmpList = [];

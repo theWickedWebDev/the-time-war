@@ -45,7 +45,7 @@ function setExplosion() {
 
 function resetEnemy(enemy) {
   addToScore(50);
-  enemy.x = canvas.width + Math.random()*300;
+  enemy.x = canvas.width + (Math.random()*300) + 100;
   enemy.y = (canvas.height - 100) * Math.random()+50;
   enemy.speed = (Math.random()*5) + dalekSpeed;
 };

@@ -1,32 +1,32 @@
 function handleTick() {
+  if (play == true) {
 
-  rollForCompanion();
+    rollForCompanion();
 
-  //checking clicks
-  if (!clicked && stage.mouseX && stage.mouseY) {
-    mouseTarget = stage.getObjectUnderPoint(mouseBp.x,mouseBp.y); 
-  }
-
-  if (clicked && mouseTarget) {
-    var tempText = String(mouseTarget.name);
-    tempText = tempText.substring(0,5);
-
-    switch(tempText) {
-      case 'dalek':
-          createjs.Sound.play('sonic');
-          setExplosion();
-          resetEnemy(mouseTarget);
-        break;
-      case 'roset':
-          createjs.Sound.play('sonic');
-          useCompanion(mouseTarget);
-        break;
+    //checking clicks
+    if (!clicked && stage.mouseX && stage.mouseY) {
+      mouseTarget = stage.getObjectUnderPoint(mouseBp.x,mouseBp.y); 
     }
 
-    clicked = false;
-  }
+    if (clicked && mouseTarget) {
+      var tempText = String(mouseTarget.name);
+      tempText = tempText.substring(0,5);
 
-  if (play == true) {
+      switch(tempText) {
+        case 'dalek':
+            createjs.Sound.play('sonic');
+            setExplosion();
+            resetEnemy(mouseTarget);
+          break;
+        case 'roset':
+            createjs.Sound.play('sonic');
+            useCompanion(mouseTarget);
+          break;
+      }
+
+      clicked = false;
+    }
+
     //moving daleks
     var l = bmpList.length;
     for (var i=0;i<l;i++) {
@@ -46,8 +46,7 @@ function handleTick() {
       removeCompanion(companion);
     }
   }
-
-
+  
   stage.update();
   canvas.onclick = handleClick;
   document.onkeydown = handleKeyDown;
@@ -74,7 +73,7 @@ function addToScore(amt) {
 };
 
 function handleLoad(event) {
-    createjs.Sound.play('theme', {loop:-1});
+  createjs.Sound.play('theme', {loop:-1});
 }
 
 function moveHandler() {
