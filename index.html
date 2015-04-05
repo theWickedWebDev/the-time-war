@@ -13,7 +13,7 @@ python -m SimpleHTTPServer
     <script>
 
       // defaults
-      var numOfDaleks = 8;
+      var numOfDaleks = 16;
 
       var canvas, stage, bg, score, bitmap;
       var bmpList = [];
@@ -31,6 +31,7 @@ python -m SimpleHTTPServer
       ];
 
       var images = [
+        {id: "gallifrey", src:"assets/gallifrey2.jpg"},
         {id: "space", src:"assets/space.jpg"}
       ]
 
@@ -45,7 +46,7 @@ python -m SimpleHTTPServer
         stage = new createjs.Stage(canvas);
         score = 0;
 
-        bg = queue.getResult("space")
+        bg = queue.getResult("gallifrey")
         setBG();
 
         stage.canvas.style.cursor = 'none';
@@ -101,6 +102,8 @@ python -m SimpleHTTPServer
 
       function setBG() {
         var bgrnd = new createjs.Bitmap(bg);
+        bgrnd.height = 100;
+        bgrnd.width = 860;
         stage.addChild(bgrnd);
         stage.update();
         createDaleks;
