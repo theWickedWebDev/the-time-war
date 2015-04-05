@@ -6,13 +6,20 @@ python -m SimpleHTTPServer
   <head>
     <meta charset="UTF-8">
     <title>My First Game with Easel</title>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+
     <script src="http://code.createjs.com/createjs-2014.12.12.min.js"></script>
 
     <script>
+
+      // defaults
+      var numOfDaleks = 6;
+
       var canvas, stage, bg, score, bitmap;
       var bmpList = [];
       var txt, play, gameTxt;
       var mouseTarget, clicked, mouseBp;
+      var explosion;
 
       var audioPath = "assets/";
       var sounds = [
@@ -21,7 +28,6 @@ python -m SimpleHTTPServer
           {id:"theme", src:"theme.mp3"}
       ];
       createjs.Sound.alternateExtensions = ["mp3"];
-
 
       function init() {
         canvas = document.getElementById('canvas');
@@ -43,6 +49,9 @@ python -m SimpleHTTPServer
         image.src = 'assets/dalek.png';
         image.onload = createDaleks;
 
+        explosion = new Image();
+        explosion.src = 'assets/explosion.png';
+
         mouseBp = new createjs.Bitmap('assets/sonic.png');
         createjs.Sound.registerSounds(sounds, audioPath);   
         createjs.Sound.addEventListener("fileload", handleLoad);
@@ -53,20 +62,20 @@ python -m SimpleHTTPServer
       }
       
       function moveHandler() {
-        mouseBp.x = stage.mouseX;
-        mouseBp.y = stage.mouseY;
+        mouseBp.x = stage.mouseX - 5;
+        mouseBp.y = stage.mouseY - 5;
       };
 
       function createDaleks(event) {
         var image = event.target;
         var container = new createjs.Container();
         stage.addChild(container);
-        var l = 5;
+        var l = numOfDaleks;
         bmpList = [];
         for (i=0;i<l;i++) {
           bitmap = new createjs.Bitmap(image);
           container.addChild(bitmap);
-          bitmap.name = "ship" + i;
+          bitmap.name = "dalek" + i;
           resetEnemy(bitmap);
           bitmap.regX = bitmap.image.width/2|0;
           bitmap.regY = bitmap.image.height/2|0;
@@ -90,23 +99,50 @@ python -m SimpleHTTPServer
         createDaleks;
       };
 
-      function resetEnemy(ship) {
-        ship.x = canvas.width + Math.random()*300;
-        ship.y = canvas.height * Math.random();
-        ship.speed = (Math.random()*5)+2;
+      function resetEnemy(dalek) {
+        dalek.x = canvas.width + Math.random()*300;
+        dalek.y = (canvas.height - 100) * Math.random()+50;
+        dalek.speed = (Math.random()*5)+2;
       };
 
       function handleTick() {
         //checking clicks
         if (!clicked && stage.mouseX && stage.mouseY) {
-          mouseTarget = stage.getObjectUnderPoint(stage.mouseX,stage.mouseY); 
+          mouseTarget = stage.getObjectUnderPoint(mouseBp.x,mouseBp.y); 
         }
 
         if (clicked && mouseTarget) {
           var tempText = String(mouseTarget.name);
-          tempText = tempText.substring(0,4);
-          if (tempText!=null && tempText=='ship') {
+          tempText = tempText.substring(0,5);
+          if (tempText!=null && tempText=='dalek') {
+            
+            // explosions
+            var data = {
+              framerate: 10,
+              images: [explosion],
+              frames: {width:64, height:64, regX:32, regY:32},
+              animations: {
+                  'explode': [0, 25,null,4]
+              }
+            }
+
+            var spritesheet = new createjs.SpriteSheet(data);
+            var animation = new createjs.Sprite(spritesheet, 'explode');
+            animation.x = mouseTarget.x;
+            animation.y = mouseTarget.y;
+            stage.addChild(animation);
+            animation.on("animationend", handleExplosionEnd);
+            function handleExplosionEnd(event) {
+                if (event.name == "explode") { // For example
+                    event.remove();
+                    stage.removeChild(animation);
+                }
+            }
+
+            // play sonic sound
             createjs.Sound.play('sonic');
+
+            // resets
             resetEnemy(mouseTarget);
             score += 50;
             clicked = false;
@@ -118,7 +154,7 @@ python -m SimpleHTTPServer
           var l = bmpList.length;
           for (var i=0;i<l;i++) {
             var bmp = bmpList[i];
-            if (bmp.x > -100) {
+            if (bmp.x > -20) {
               bmp.x -= bmp.speed;
             } else {
               gameOver();
@@ -166,6 +202,6 @@ python -m SimpleHTTPServer
     </script>
   </head>
   <body onload="init();">
-    <canvas id="canvas" width="800" height="500"></canvas>
+    <canvas id="canvas" width="1000" height="500"></canvas>
   </body>
 </html>
