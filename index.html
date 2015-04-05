@@ -13,7 +13,7 @@ python -m SimpleHTTPServer
     <script>
 
       // defaults
-      var numOfDaleks = 19;
+      var numOfDaleks = 15;
 
       var canvas, stage, bg, score, bitmap;
       var bmpList = [];
@@ -49,6 +49,10 @@ python -m SimpleHTTPServer
 
         var image = new Image();
         image.src = 'assets/dalek.png';
+
+        var rose = new Image();
+        rose.src = 'assets/rose.png';
+
         image.onload = createDaleks;
 
         explosion = new Image();
@@ -84,6 +88,9 @@ python -m SimpleHTTPServer
           bitmap.mouseEnabled = true;
           bmpList.push(bitmap)
         }
+
+        rosePic = new createjs.Bitmap(rose);
+        container.addChild(rose);
         stage.addChild(mouseBp);
         gameOver();
         createjs.Ticker.addEventListener('tick', handleTick);
