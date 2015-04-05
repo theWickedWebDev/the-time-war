@@ -7,7 +7,7 @@ python -m SimpleHTTPServer
     <meta charset="UTF-8">
     <title>My First Game with Easel</title>
     <link href="css/main.css" rel="stylesheet" type="text/css">
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
     <script src="http://code.createjs.com/createjs-2014.12.12.min.js"></script>
 
     <script>
@@ -21,12 +21,13 @@ python -m SimpleHTTPServer
       var mouseTarget, clicked, mouseBp;
       var explosion;
 
-      var audioPath = "assets/";
+      var audioPath = 'assets/';
       var sounds = [
-          {id:"sonic", src:"sonic.mp3"},
-          {id:"exterminate", src:"exterminate.mp3"},
-          {id:"theme", src:"theme.mp3"}
+          {id:'sonic', src:'sonic.mp3'},
+          {id:'exterminate', src:'exterminate.mp3'},
+          {id:'theme', src:'theme.mp3'}
       ];
+
       createjs.Sound.alternateExtensions = ["mp3"];
 
       function init() {
@@ -35,16 +36,16 @@ python -m SimpleHTTPServer
         stage = new createjs.Stage(canvas);
         score = 0;
 
+        bg = new Image();
+        bg.src = 'assets/space.jpg';
+        bg.onload = setBG;
+
         stage.canvas.style.cursor = 'none';
         
         stage.addEventListener('stagemousemove', moveHandler);
 
         canvas.onmousedown = onMouseDown;
         canvas.onmouseup = onMouseUp;
-
-        bg = new Image();
-        bg.src = 'assets/space.jpg';
-        bg.onload = setBG;
 
         var image = new Image();
         image.src = 'assets/dalek.png';
@@ -83,7 +84,6 @@ python -m SimpleHTTPServer
           bitmap.mouseEnabled = true;
           bmpList.push(bitmap)
         }
-        stage.addChild(txt);
         stage.addChild(mouseBp);
         gameOver();
         createjs.Ticker.addEventListener('tick', handleTick);
@@ -162,6 +162,22 @@ python -m SimpleHTTPServer
         }
         stage.update();
         canvas.onclick = handleClick;
+        document.onkeydown = handleKeyDown;
+        document.onkeyup = handleKeyUp;
+      };
+
+      function handleKeyDown(event) {
+        if (event.keyCode == 32) {
+          event.preventDefault();
+          clicked = true;
+        }
+      };
+
+      function handleKeyUp(event) {
+        if (event.keyCode == 32) {
+          event.preventDefault();
+          clicked = false;
+        }
       };
 
       function handleClick() {
@@ -200,6 +216,6 @@ python -m SimpleHTTPServer
   </head>
   <body onload="init();">
     <p id="score">Score: 0</p>
-    <canvas id="canvas" width="800" height="600"></canvas>
+    <canvas id="canvas" width="860" height="600"></canvas>
   </body>
 </html>
