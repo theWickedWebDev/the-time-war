@@ -1,8 +1,8 @@
 // defaults
 var numOfDaleks;
-var dalekSpeed = 5;
+var dalekSpeed = 1;
 var companionSpeed = 10;
-var companionRarity = 998; // 1-1000(not rare to rare)
+var companionRarity = 997; // 1-1000(not rare to rare)
 
 var canvas, stage, bg, bitmap, container;
 var score = 0;
@@ -14,8 +14,8 @@ var dalekImage;
 var companionImage, companion, companionOut;
 var level = 1;
 var queue = new createjs.LoadQueue();
-
 var audioPath = 'assets/';
+
 var sounds = [
     {id:'sonic', src:'sonic.mp3'},
     {id:'exterminate', src:'exterminate.mp3'},
@@ -23,28 +23,41 @@ var sounds = [
 ];
 
 var chars = [
+  {id: 'rose', src:'assets/rose.png'}
+];
+
+var sonic = [
+  {id: 'sonic', src:'assets/sonic.png'}
+];
+
+var daleks = [
+  {id: 'explosion', src:'assets/explosion.png'},
   {id: 'dalek1', src:'assets/dalek.png'},
   {id: 'dalek2', src:'assets/dalek2.png'},
   {id: 'dalek3', src:'assets/dalek3.png'},
   {id: 'dalek4', src:'assets/dalek4.png'},
-  {id: 'dalek5', src:'assets/dalek5.png'},
-  {id: 'sonic', src:'assets/sonic.png'},
-  {id: 'explosion', src:'assets/explosion.png'},
-  {id: 'rose', src:'assets/rose.png'}
-];
-
-var levels = [
-  {id: 'level1', src:'assets/gallifrey.jpg'},
-  {id: 'level2', src:'assets/gallifrey2.jpg'},
-  {id: 'level3', src:'assets/space.jpg'},
+  {id: 'dalek5', src:'assets/dalek5.png'}
 ]
 
-createjs.Sound.registerSounds(sounds, audioPath); 
-createjs.Sound.alternateExtensions = ["mp3"];
+var levels = [
+  {id: 'level1', src:'assets/gallifrey2.jpg'},
+  {id: 'level2', src:'assets/space.jpg'},
+  {id: 'level3', src:'assets/gallifrey.jpg'},
+  {id: 'level4', src:'assets/space2.jpg'},
+  {id: 'level5', src:'assets/badwolf.jpg'},
+  {id: 'level6', src:'assets/tardisexplode.jpg'}
+]
+
+// preloads images
 queue.loadManifest(chars); 
-queue.loadManifest(levels);  
-createjs.Sound.addEventListener("fileload", handleLoad);
+queue.loadManifest(levels); 
+queue.loadManifest(sonic); 
+queue.loadManifest(daleks); 
 queue.on("complete", loadingComplete, this);
+
+createjs.Sound.registerSounds(sounds, audioPath); 
+createjs.Sound.alternateExtensions = ["mp3"]; 
+createjs.Sound.addEventListener("fileload", handleLoad);
 
   
 function loadingComplete() {
