@@ -1,5 +1,6 @@
 // defaults
-var numOfDaleks = 5;
+alert('Use Mouse to Aim. Space-bar to attack.')
+var numOfDaleks = 8;
 var dalekSpeed = 5;
 var companionSpeed = 10;
 var companionRarity = 998; // 1-1000(not rare to rare)

@@ -16,10 +16,12 @@ function handleTick() {
         case 'dalek':
             createjs.Sound.play('sonic');
             setExplosion();
+            addToScore(50);
             resetEnemy(mouseTarget);
           break;
         case 'roset':
             createjs.Sound.play('sonic');
+            addToScore(50*numOfDaleks);
             useCompanion(mouseTarget);
           break;
       }
