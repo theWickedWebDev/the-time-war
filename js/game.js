@@ -2,9 +2,6 @@
 function handleTick() {
   if (play == true) {
 
-    rollForCompanion();
-    rollForTardis();
-
     //checking clicks and storing what was clicked
     if (!clicked && stage.mouseX && stage.mouseY) {
       mouseTarget = stage.getObjectUnderPoint(mouseBp.x,mouseBp.y); 
@@ -21,24 +18,27 @@ function handleTick() {
             addToScore(50);
             resetEnemy(mouseTarget);
           break;
-        case 'roset':
+        case 'angel':
             createjs.Sound.play('sonic');
-            addToScore(50*numOfDaleks);
-            useCompanion(mouseTarget);
+            setExplosion();
+            addToScore(50);
+            resetEnemy(mouseTarget);
           break;
-        case 'tardi':
+        case 'cyber':
             createjs.Sound.play('sonic');
-            useTardis(mouseTarget);
+            setExplosion();
+            addToScore(50);
+            resetEnemy(mouseTarget);
           break;
       }
 
       clicked = false;
     }
 
-    //moving daleks
-    var l = bmpList.length;
+    //moving enemies
+    var l = enemyList.length;
     for (var i=0;i<l;i++) {
-      var bmp = bmpList[i];
+      var bmp = enemyList[i];
       if (bmp.x > -20) {
         bmp.x -= bmp.speed;
       } else {
@@ -46,20 +46,6 @@ function handleTick() {
         resetEnemy(bmp);
         addToLives(-1);
       }
-    }
-
-    //moving companions
-    if (companion && companion.x > -20) {
-      companion.x -= companion.speed;
-    } else {
-      removeCompanion(companion);
-    }
-
-    //moving tardis
-    if (tardis && tardis.x > -20) {
-      tardis.x -= tardis.speed;
-    } else {
-      removeTardis(tardis);
     }
   }
   

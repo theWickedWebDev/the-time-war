@@ -7,6 +7,7 @@ function setBG(bg) {
 function setSonic() {
   stage.removeChild(mouseBp);
   mouseBp = new createjs.Bitmap(mouse);
+  console.log(mouse);
   stage.addChild(mouseBp);
   moveHandler();
   stage.update();
@@ -15,9 +16,9 @@ function setSonic() {
 function resetGame(txt) {
   play = false;
   score = 0;
-  dalekSpeed = 1;
+  enemySpeed = 1;
   changeLevel(1);
-  removeAllDaleks();
+  resetAllEnemies();
   changeGameText(txt);
   stage.update();
 };
