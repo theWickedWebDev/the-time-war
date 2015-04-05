@@ -55,11 +55,10 @@ function handleTick() {
   document.onkeyup = handleKeyUp;
 };
 
-function setBG() {
-  var bgrnd = new createjs.Bitmap(bg);
+function setBG(bg) {
+  bgrnd = new createjs.Bitmap(bg);
   stage.addChild(bgrnd);
   stage.update();
-  createDaleks;
 };
 
 function setSonic() {
@@ -71,6 +70,8 @@ function setSonic() {
 
 function addToScore(amt) {
   score += amt;
+  if (score > 500 && level == 1) changeLevel(2);
+  if (score > 1000 && level == 2) changeLevel(3);
   scoreP.innerText = "Score: " + score;
 };
 
@@ -81,6 +82,26 @@ function handleLoad(event) {
 function moveHandler() {
   mouseBp.x = stage.mouseX - 5;
   mouseBp.y = stage.mouseY - 5;
+};
+
+function changeLevel(lvl) {
+  switch(lvl) {
+    case 2:
+      level = 2;
+      stage.removeChild(bgrnd);
+      setBG(queue.getResult('space'));
+      break;
+    case 3:
+      level = 3;
+      stage.removeChild(bgrnd);
+      setBG(queue.getResult('gallifrey'));
+      break;
+  }
+
+  stage.update();
+  buildSettings();
+  setSonic();
+  stage.update();
 };
 
 function gameOver() {

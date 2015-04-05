@@ -6,12 +6,12 @@ var companionRarity = 998; // 1-1000(not rare to rare)
 
 var canvas, stage, bg, score, bitmap, container;
 var bmpList = [];
-var play, gameTxt;
+var play, gameTxt, bgrnd;
 var mouseTarget, clicked, mouseBp, mouse;
 var explosion;
 var dalekImage;
 var companionImage, companion, companionOut;
-
+var level = 1;
 var queue = new createjs.LoadQueue();
 
 var audioPath = 'assets/';
@@ -22,7 +22,8 @@ var sounds = [
 ];
 
 var images = [
-  {id: 'gallifrey', src:'assets/gallifrey2.jpg'},
+  {id: 'gallifrey', src:'assets/gallifrey.jpg'},
+  {id: 'gallifrey2', src:'assets/gallifrey2.jpg'},
   {id: 'space', src:'assets/space.jpg'},
   {id: 'dalek', src:'assets/dalek.png'},
   {id: 'sonic', src:'assets/sonic.png'},
@@ -45,7 +46,6 @@ function start() {
   stage.canvas.style.cursor = 'none';
   stage.addEventListener('stagemousemove', moveHandler);
 
-  bg = queue.getResult('gallifrey');
   dalekImage = queue.getResult('dalek');
   mouse = queue.getResult('sonic');
   companionImage = queue.getResult('rose');
@@ -53,7 +53,7 @@ function start() {
   canvas.onmousedown = onMouseDown;
   canvas.onmouseup = onMouseUp;
 
-  setBG();
+  setBG(queue.getResult('gallifrey2'));
   buildSettings();
   createDaleks();
   setSonic();
