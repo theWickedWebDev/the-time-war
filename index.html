@@ -13,13 +13,15 @@ python -m SimpleHTTPServer
     <script>
 
       // defaults
-      var numOfDaleks = 15;
+      var numOfDaleks = 8;
 
       var canvas, stage, bg, score, bitmap;
       var bmpList = [];
       var play, gameTxt;
       var mouseTarget, clicked, mouseBp;
       var explosion;
+
+      var queue = new createjs.LoadQueue();
 
       var audioPath = 'assets/';
       var sounds = [
@@ -28,17 +30,23 @@ python -m SimpleHTTPServer
           {id:'theme', src:'theme.mp3'}
       ];
 
-      createjs.Sound.alternateExtensions = ["mp3"];
+      var images = [
+        {id: "space", src:"assets/space.jpg"}
+      ]
 
-      function init() {
+      createjs.Sound.registerSounds(sounds, audioPath); 
+      queue.loadManifest(images);  
+      createjs.Sound.addEventListener("fileload", handleLoad);
+      queue.on("complete", start, this);
+
+      function start() {
         canvas = document.getElementById('canvas');
         scoreP = document.getElementById('score');
         stage = new createjs.Stage(canvas);
         score = 0;
 
-        bg = new Image();
-        bg.src = 'assets/space.jpg';
-        bg.onload = setBG;
+        bg = queue.getResult("space")
+        setBG();
 
         stage.canvas.style.cursor = 'none';
         
@@ -50,18 +58,16 @@ python -m SimpleHTTPServer
         var image = new Image();
         image.src = 'assets/dalek.png';
 
-        var rose = new Image();
-        rose.src = 'assets/rose.png';
-
         image.onload = createDaleks;
 
         explosion = new Image();
         explosion.src = 'assets/explosion.png';
 
         mouseBp = new createjs.Bitmap('assets/sonic.png');
-        createjs.Sound.registerSounds(sounds, audioPath);   
-        createjs.Sound.addEventListener("fileload", handleLoad);
-      };
+
+      }
+
+      createjs.Sound.alternateExtensions = ["mp3"];
       
       function handleLoad(event) {
           createjs.Sound.play('theme', {loop:-1});
@@ -88,15 +94,12 @@ python -m SimpleHTTPServer
           bitmap.mouseEnabled = true;
           bmpList.push(bitmap)
         }
-
-        rosePic = new createjs.Bitmap(rose);
-        container.addChild(rose);
         stage.addChild(mouseBp);
         gameOver();
         createjs.Ticker.addEventListener('tick', handleTick);
       };
 
-      function setBG(event) {
+      function setBG() {
         var bgrnd = new createjs.Bitmap(bg);
         stage.addChild(bgrnd);
         stage.update();
@@ -221,7 +224,7 @@ python -m SimpleHTTPServer
       };
     </script>
   </head>
-  <body onload="init();">
+  <body>
     <p id="score">Score: 0</p>
     <canvas id="canvas" width="860" height="600"></canvas>
   </body>
