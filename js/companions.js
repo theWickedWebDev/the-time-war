@@ -1,4 +1,5 @@
 function createCompanion() {
+  companionImage = queue.getResult('rose');
   companionOut = true;
   companion = new createjs.Bitmap(companionImage);
   stage.addChild(companion);
@@ -19,12 +20,7 @@ function createCompanion() {
 
 function useCompanion(companion) {
   stage.removeChild(companion);
-  var l = bmpList.length;
-  for (var i=0;i<l;i++) {
-    var bmp = bmpList[i];
-    addToScore(50);
-    resetEnemy(bmp);
-  }
+  removeAllDaleks();
   companionOut = false;
 };
 

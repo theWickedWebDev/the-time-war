@@ -1,9 +1,13 @@
 function createDaleks() {
+  removeAllDaleks();
   container = new createjs.Container();
   stage.addChild(container);
   var l = numOfDaleks;
   bmpList = [];
+
   for (i=0;i<l;i++) {
+    var dalekType = Math.floor(Math.random() * 5)+1;
+    dalekImage = queue.getResult('dalek' + dalekType);
     bitmap = new createjs.Bitmap(dalekImage);
     container.addChild(bitmap);
     bitmap.name = "dalek" + i;
@@ -48,3 +52,11 @@ function resetEnemy(enemy) {
   enemy.y = (canvas.height - 100) * Math.random()+50;
   enemy.speed = (Math.random()*5) + dalekSpeed;
 };
+
+function removeAllDaleks() {
+  var l = bmpList.length;
+  for (var i=0;i<l;i++) {
+    var bmp = bmpList[i];
+    resetEnemy(bmp);
+  }
+}

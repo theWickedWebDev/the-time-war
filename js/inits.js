@@ -4,7 +4,8 @@ var dalekSpeed = 5;
 var companionSpeed = 10;
 var companionRarity = 998; // 1-1000(not rare to rare)
 
-var canvas, stage, bg, score, bitmap, container;
+var canvas, stage, bg, bitmap, container;
+var score = 0;
 var bmpList = [];
 var play, gameTxt, bgrnd;
 var mouseTarget, clicked, mouseBp, mouse;
@@ -21,41 +22,61 @@ var sounds = [
     {id:'theme', src:'theme.mp3'}
 ];
 
-var images = [
-  {id: 'gallifrey', src:'assets/gallifrey.jpg'},
-  {id: 'gallifrey2', src:'assets/gallifrey2.jpg'},
-  {id: 'space', src:'assets/space.jpg'},
-  {id: 'dalek', src:'assets/dalek.png'},
+var chars = [
+  {id: 'dalek1', src:'assets/dalek.png'},
+  {id: 'dalek2', src:'assets/dalek2.png'},
+  {id: 'dalek3', src:'assets/dalek3.png'},
+  {id: 'dalek4', src:'assets/dalek4.png'},
+  {id: 'dalek5', src:'assets/dalek5.png'},
   {id: 'sonic', src:'assets/sonic.png'},
   {id: 'explosion', src:'assets/explosion.png'},
   {id: 'rose', src:'assets/rose.png'}
+];
+
+var levels = [
+  {id: 'level1', src:'assets/gallifrey.jpg'},
+  {id: 'level2', src:'assets/gallifrey2.jpg'},
+  {id: 'level3', src:'assets/space.jpg'},
 ]
 
 createjs.Sound.registerSounds(sounds, audioPath); 
 createjs.Sound.alternateExtensions = ["mp3"];
-queue.loadManifest(images);  
+queue.loadManifest(chars); 
+queue.loadManifest(levels);  
 createjs.Sound.addEventListener("fileload", handleLoad);
-queue.on("complete", start, this);
+queue.on("complete", loadingComplete, this);
 
   
-function start() {
+function loadingComplete() {
+  // assigns canvas, stage and details
   canvas = document.getElementById('canvas');
   scoreP = document.getElementById('score');
+  levelP = document.getElementById('level');
   stage = new createjs.Stage(canvas);
-  score = 0;
   stage.canvas.style.cursor = 'none';
-  stage.addEventListener('stagemousemove', moveHandler);
 
-  dalekImage = queue.getResult('dalek');
+  // assigns sonic to mouse
   mouse = queue.getResult('sonic');
-  companionImage = queue.getResult('rose');
 
+  // watches for mouse/key presses
+  stage.addEventListener('stagemousemove', moveHandler);
   canvas.onmousedown = onMouseDown;
   canvas.onmouseup = onMouseUp;
+  document.onkeydown = handleKeyDown;
+  document.onkeyup = handleKeyUp;
 
-  setBG(queue.getResult('gallifrey2'));
-  buildSettings();
-  createDaleks();
-  setSonic();
-  gameOver();
+  // SHOULD CHANGE THIS TO TITLE SCREEN
+  // sets first level
+  resetGame('Click to Start!');
+};
+
+function handleLoad(event) {
+  // plays theme song
+  createjs.Sound.play('theme', {loop:-1}); // -1 infinite
 }
+
+function moveHandler() {
+  // keeps sonic at mouse
+  mouseBp.x = stage.mouseX - 5;
+  mouseBp.y = stage.mouseY - 5;
+};

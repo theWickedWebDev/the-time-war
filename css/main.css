@@ -21,15 +21,23 @@ canvas {
   top: 178px;
 }
 
-#score {
+#score,
+#level {
   position: absolute;
   left: 50%;
   margin-left: 250px;
   color: rgba(254, 253, 253, 0.86);
   text-transform: uppercase;
-  top: 32px;
   font-size: 30px;
   text-shadow: 0 0 13px #F2EDD7;
+}
+
+#score {
+  top: 54px;
+}
+
+#level {
+  top: 10px;
 }
 
 #dalekCount {
