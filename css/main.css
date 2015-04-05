@@ -31,3 +31,16 @@ canvas {
   font-size: 30px;
   text-shadow: 0 0 13px #F2EDD7;
 }
+
+#dalekCount {
+  width: 70px;
+  font-size: 22px;
+  position: absolute;
+  left: 50%;
+  margin-left: -460px;
+  top: 57px;
+  background: transparent;
+  border: solid 1px #fff;
+  color: rgba(232, 231, 229, 0.67);
+  padding: 10px;
+}

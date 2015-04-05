@@ -1,11 +1,10 @@
 // defaults
-alert('Use Mouse to Aim. Space-bar to attack.')
-var numOfDaleks = 8;
+var numOfDaleks;
 var dalekSpeed = 5;
 var companionSpeed = 10;
 var companionRarity = 998; // 1-1000(not rare to rare)
 
-var canvas, stage, bg, score, bitmap;
+var canvas, stage, bg, score, bitmap, container;
 var bmpList = [];
 var play, gameTxt;
 var mouseTarget, clicked, mouseBp, mouse;
@@ -55,6 +54,7 @@ function start() {
   canvas.onmouseup = onMouseUp;
 
   setBG();
+  buildSettings();
   createDaleks();
   setSonic();
   gameOver();

@@ -1,5 +1,5 @@
 function createDaleks() {
-  var container = new createjs.Container();
+  container = new createjs.Container();
   stage.addChild(container);
   var l = numOfDaleks;
   bmpList = [];
