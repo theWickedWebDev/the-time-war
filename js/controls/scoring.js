@@ -18,21 +18,3 @@ function addToLives(amt) {
     resetGame('Game Over!');
   }
 };
-
-function changeLevel(lvl) {
-  level = lvl;
-  levelP.innerText = "Level: " + lvl;
-  stage.removeChild(bgrnd);
-
-  setBG(queue.getResult('level' + lvl));
-  enemySpeed += 2;
-
-  removeAllEnemies();
-  createEnemies(allEnemies.dalek, 5);
-  createEnemies(allEnemies.angel, 2);
-  createEnemies(allEnemies.cyber, 3);
-  
-  
-  setSonic();
-  stage.update();
-};

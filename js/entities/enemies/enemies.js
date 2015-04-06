@@ -38,20 +38,21 @@ function createEnemies(newEnemy, amt) {
   amt = amt || 1;
 
   for (i=0;i<amt;i++) {
-    var enemyToMake = newEnemy.name; // randomize this
-    var enemyType = Math.floor(Math.random() * newEnemy.count)+1; // randomize this
+    var enemyToMake = newEnemy.name;
+    var enemyType = Math.floor(Math.random() * newEnemy.count)+1;
 
     var enemyImage = queue.getResult(enemyToMake + enemyType);
     var enemy = new createjs.Bitmap(enemyImage);
     enemyContainer.addChild(enemy);
 
     enemy.name = enemyToMake + i;
+    enemy.out = true;
 
     //puts it to right of sreen
     resetEnemy(enemy);
 
     //resizes it randomly
-    randomSize(enemy, 8);
+    randomEnemySize(enemy, 8);
 
     //sets coords for explosions
     enemy.regX = enemy.image.width/2|0;
@@ -102,12 +103,12 @@ function setExplosion() {
 function resetEnemy(enemy) {
   enemy.x = canvas.width + (Math.random()*300) + 100;
   enemy.y = (canvas.height - 100) * Math.random()+50;
-  randomSize(enemy, 8);
+  randomEnemySize(enemy, 8);
   enemy.speed = (Math.random()*5) + enemySpeed;
 };
 
 // ranomizes the size of the enemy
-function randomSize(enemy, amt) {
+function randomEnemySize(enemy, amt) {
   var enemySize = (Math.floor(Math.random()*amt))/10;
   enemy.scaleX = 1 + enemySize;
   enemy.scaleY = 1 + enemySize;

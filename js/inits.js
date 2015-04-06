@@ -19,8 +19,10 @@ var scoreP, livesP;
   var sounds = [
     {id:'sonic', src:'sonic.mp3'},
     {id:'exterminate', src:'exterminate.mp3'},
-    {id:'theme', src:'theme.mp3'}
+    {id:'theme', src:'theme.mp3'},
+    {id:'delete', src:'delete.mp3'}
   ];
+
   createjs.Sound.registerSounds(sounds, audioPath); 
   createjs.Sound.alternateExtensions = ["mp3"]; 
   createjs.Sound.addEventListener("fileload", handleLoad);

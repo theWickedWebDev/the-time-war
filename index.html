@@ -7,8 +7,8 @@ python -m SimpleHTTPServer
     <meta charset="UTF-8">
     <title>My First Game with Easel</title>
     <link href="css/main.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700'
-          rel='stylesheet' type='text/css'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700'
+          rel='stylesheet' type='text/css'> -->
   </head>
   <body>
     <p id="level">Level: 1</p>
@@ -18,10 +18,15 @@ python -m SimpleHTTPServer
     <canvas id="canvas" width="860" height="600"></canvas>
 
     <!--CREATEjs-->
-    <script src="http://code.createjs.com/createjs-2014.12.12.min.js"></script>
+    <!--<script src="http://code.createjs.com/createjs-2014.12.12.min.js"></script>-->
+    <script src="js/vendor/create.js"></script>
+
 
     <!-- INIT's and Defaults -->
     <script src="js/inits.js"></script>
+
+    <!-- Levels -->
+    <script src="js/levels/levels.js"></script>
 
     <!-- Controls -->
     <script src="js/controls/reset.js"></script>

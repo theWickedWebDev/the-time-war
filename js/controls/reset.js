@@ -7,7 +7,6 @@ function setBG(bg) {
 function setSonic() {
   stage.removeChild(mouseBp);
   mouseBp = new createjs.Bitmap(mouse);
-  console.log(mouse);
   stage.addChild(mouseBp);
   moveHandler();
   stage.update();
