@@ -1,0 +1,24 @@
+<!--
+python -m SimpleHTTPServer
+-->
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My First Game with Easel</title>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700'
+          rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <p id="level">Level: 1</p>
+    <p id="score">Score: 0</p>
+    <img class="tardis-lives" src="assets/tardis.png">
+    <p id="lives">X 3</p>
+    <canvas id="canvas" width="860" height="600"></canvas>
+
+    <!--CREATEjs-->
+    <script src="scripts/create.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

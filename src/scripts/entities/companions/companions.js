@@ -28,7 +28,7 @@ function createCompanions(newCompanion, amt) {
 
   amt = amt || 1;
 
-  for (i = 0; i < amt; i++) {
+  for (var i = 0; i < amt; i++) {
     var companionToMake = newCompanion.name;
     var companionType = Math.floor(Math.random() * newCompanion.count) + 1;
 

@@ -39,7 +39,7 @@ function createEnemies(newEnemy, amt) {
 
   amt = amt || 1;
 
-  for (i = 0; i < amt; i++) {
+  for (var i = 0; i < amt; i++) {
     var enemyToMake = newEnemy.name;
     var enemyType = Math.floor(Math.random() * newEnemy.count) + 1;
 

@@ -7,6 +7,7 @@ This is a game I made using the [CreateJs](http://createjs.com/) framework.
 
 ```
 python -m SimpleHTTPServer
+gulp
 ```
 
 App should be listening on port 8000
