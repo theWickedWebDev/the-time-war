@@ -7,13 +7,13 @@ function addToScore(amt) {
   if (score >= 20000 && level == 5) changeLevel(6);
   if (score >= 50000) resetGame('You Defeated the Daleks!');
 
-  scoreP.innerText = "Score: " + score;
+  scoreP.innerText = 'Score: ' + score;
 };
 
 function addToLives(amt) {
   lives += amt;
-  livesP.innerText = "X " + lives;
-  if (lives < 0) { 
+  livesP.innerText = 'X ' + lives;
+  if (lives < 0) {
     livesP.innerText = 'X 0';
     resetGame('Game Over!');
   }

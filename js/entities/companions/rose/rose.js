@@ -1,3 +1,5 @@
+'use strict';
+
 function createRose() {
   companionImage = queue.getResult('rose');
   companionOut = true;
@@ -5,11 +7,10 @@ function createRose() {
   stage.addChild(companion);
   companion.name = 'roset';
   resetCompanion(companion);
-  var originalW = companion.image.width;
-  var originalH = companion.image.height;
-
-  var desiredW = 36;
-  var desiredH = 90;
+  var originalW = companion.image.width,
+  originalH = companion.image.height,
+  desiredW = 36,
+  desiredH = 90;
 
   companion.scaleX = companion.scaleY = desiredW / originalW;
   companion.regX = 0;

@@ -24,8 +24,8 @@ function resetGame(txt) {
 
 function changeGameText(txt) {
   gameTxt = new createjs.Text(txt, '36px Ariel', '#fff');
-  gameTxt.textAlign = "center";
-  gameTxt.x = canvas.width/2;
-  gameTxt.y = canvas.height/2;
+  gameTxt.textAlign = 'center';
+  gameTxt.x = canvas.width / 2;
+  gameTxt.y = canvas.height / 2;
   stage.addChild(gameTxt);
 }

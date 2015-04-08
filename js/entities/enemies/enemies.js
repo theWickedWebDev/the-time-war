@@ -1,3 +1,5 @@
+'use strict';
+
 var enemySpeed = 1;
 var enemyList = [];
 
@@ -13,7 +15,7 @@ var daleks = [
   {id: 'cyber1', src:'assets/cybermen.png'}
 ];
 
-queue.loadManifest(daleks); 
+queue.loadManifest(daleks);
 
 var allEnemies = {
   dalek: {
@@ -37,9 +39,9 @@ function createEnemies(newEnemy, amt) {
 
   amt = amt || 1;
 
-  for (i=0;i<amt;i++) {
+  for (i = 0; i < amt; i++) {
     var enemyToMake = newEnemy.name;
-    var enemyType = Math.floor(Math.random() * newEnemy.count)+1;
+    var enemyType = Math.floor(Math.random() * newEnemy.count) + 1;
 
     var enemyImage = queue.getResult(enemyToMake + enemyType);
     var enemy = new createjs.Bitmap(enemyImage);
@@ -48,18 +50,18 @@ function createEnemies(newEnemy, amt) {
     enemy.name = enemyToMake + i;
     enemy.out = true;
 
-    //puts it to right of sreen
+    // puts it to right of sreen
     resetEnemy(enemy);
 
-    //resizes it randomly
+    // resizes it randomly
     randomEnemySize(enemy, 8);
 
-    //sets coords for explosions
-    enemy.regX = enemy.image.width/2|0;
-    enemy.regY = enemy.image.height/2|0;
+    // sets coords for explosions
+    enemy.regX = enemy.image.width / 2 | 0;
+    enemy.regY = enemy.image.height / 2 | 0;
     enemy.mouseEnabled = true;
 
-    //adds to enemy list
+    // adds to enemy list
     enemyList.push(enemy)
   }
 };
@@ -73,26 +75,26 @@ function setExplosion() {
   var data = {
     framerate: 10,
     images: [explosion],
-    frames: {width:64, height:64, regX:32, regY:32},
+    frames: {width: 64, height: 64, regX: 32, regY: 32},
     animations: {
-        'explode': [0, 25,null,4]
+      explode: [0, 25, null, 4]
     }
   }
 
   // animation sprite info and coords
   var spritesheet = new createjs.SpriteSheet(data);
   var animation = new createjs.Sprite(spritesheet, 'explode');
-      animation.x = mouseTarget.x;
-      animation.y = mouseTarget.y;
+  animation.x = mouseTarget.x;
+  animation.y = mouseTarget.y;
 
   // starts animation
   stage.addChild(animation);
 
   // after animation is over
-  animation.on("animationend", handleExplosionEnd);
+  animation.on('animationend', handleExplosionEnd);
 
   function handleExplosionEnd(event) {
-    if (event.name == "explode") { // For example
+    if (event.name == 'explode') { // For example
       event.remove();
       stage.removeChild(animation);
     }
@@ -101,15 +103,15 @@ function setExplosion() {
 
 // moves selected enemy back to position
 function resetEnemy(enemy) {
-  enemy.x = canvas.width + (Math.random()*300) + 100;
-  enemy.y = (canvas.height - 100) * Math.random()+50;
+  enemy.x = canvas.width + (Math.random() * 300) + 100;
+  enemy.y = (canvas.height - 100) * Math.random() + 50;
   randomEnemySize(enemy, 8);
-  enemy.speed = (Math.random()*5) + enemySpeed;
+  enemy.speed = (Math.random() * 5) + enemySpeed;
 };
 
 // ranomizes the size of the enemy
 function randomEnemySize(enemy, amt) {
-  var enemySize = (Math.floor(Math.random()*amt))/10;
+  var enemySize = (Math.floor(Math.random() * amt)) / 10;
   enemy.scaleX = 1 + enemySize;
   enemy.scaleY = 1 + enemySize;
 }
@@ -117,7 +119,7 @@ function randomEnemySize(enemy, amt) {
 // resets all enemies
 function resetAllEnemies() {
   var l = enemyList.length;
-  for (var i=0;i<l;i++) {
+  for (var i = 0; i < l; i++) {
     var bmp = enemyList[i];
     resetEnemy(bmp);
   }
@@ -126,7 +128,7 @@ function resetAllEnemies() {
 function removeAllEnemies() {
   enemyList = [];
   var l = enemyList.length;
-  for (var i=0;i<l;i++) {
+  for (var i = 0; i < l; i++) {
     var bmp = enemyList[i];
     stage.removeChild(bmp);
   }

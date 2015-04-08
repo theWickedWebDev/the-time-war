@@ -1,0 +1,17 @@
+{
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingWhitespace": true,
+    "maximumLineLength": 80,
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+    "requireCurlyBraces": [ "for", "while", "do", "try", "catch" ],
+    "requireSpaceAfterKeywords": [ "if", "else", "return", "try", "catch" ],
+    "requireSpaceAfterLineComment": null,
+    "safeContextKeyword": ["that"],
+    "validateIndentation": 2,
+    "validateJSDoc": {
+        "checkParamNames": true,
+        "requireParamTypes": true
+    },
+    "validateLineBreaks": "LF",
+    "validateQuoteMarks": true
+}
