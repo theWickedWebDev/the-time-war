@@ -13,7 +13,7 @@ var mouseTarget, clicked, mouseBp, mouse;
 
 var queue = new createjs.LoadQueue();
 var audioPath = 'assets/';
-var scoreP, livesP;
+var scoreP, livesP, levelP;
 
 
 // preloads sounds
