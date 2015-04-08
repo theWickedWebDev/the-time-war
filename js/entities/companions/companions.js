@@ -1,3 +1,5 @@
+'use strict';
+
 var companionSpeed = 1;
 var companionList = [];
 
@@ -6,7 +8,7 @@ var companionImageList = [
   {id: 'roset1', src:'assets/rose.png'}
 ];
 
-queue.loadManifest(companionImageList); 
+queue.loadManifest(companionImageList);
 
 var allCompanions = {
   tardi: {
@@ -26,9 +28,9 @@ function createCompanions(newCompanion, amt) {
 
   amt = amt || 1;
 
-  for (i=0;i<amt;i++) {
+  for (i = 0; i < amt; i++) {
     var companionToMake = newCompanion.name;
-    var companionType = Math.floor(Math.random() * newCompanion.count)+1;
+    var companionType = Math.floor(Math.random() * newCompanion.count) + 1;
 
     var companionImage = queue.getResult(companionToMake + companionType);
     var companion = new createjs.Bitmap(companionImage);
@@ -37,32 +39,32 @@ function createCompanions(newCompanion, amt) {
     companion.name = companionToMake + i;
     companion.out = true;
 
-    //puts it to right of sreen
+    // puts it to right of sreen
     resetCompanion(companion);
 
-    //sets coords for explosions
-    companion.regX = companion.image.width/2|0;
-    companion.regY = companion.image.height/2|0;
+    // sets coords for explosions
+    companion.regX = companion.image.width / 2 | 0;
+    companion.regY = companion.image.height / 2 | 0;
     companion.mouseEnabled = true;
 
-    //adds to companion list
+    // adds to companion list
     companionList.push(companion)
   }
 }
 
 // moves selected companion back to position
 function resetCompanion(companion) {
-  companion.x = canvas.width + (Math.random()*300) + 100;
-  companion.y = (canvas.height - 100) * Math.random()+50;
+  companion.x = canvas.width + (Math.random() * 300) + 100;
+  companion.y = (canvas.height - 100) * Math.random() + 50;
   randomCompanionSize(companion, 8);
-  companion.speed = (Math.random()*5) + companionSpeed;
+  companion.speed = (Math.random() * 5) + companionSpeed;
 };
 
 // resets then freezes
 function useCompanion(companion) {
   if (companion.out) {
-    companion.x = canvas.width + (Math.random()*300) + 100;
-    companion.y = (canvas.height - 100) * Math.random()+50;
+    companion.x = canvas.width + (Math.random() * 300) + 100;
+    companion.y = (canvas.height - 100) * Math.random() + 50;
     randomCompanionSize(companion, 8);
     companion.speed = 0;
   }
@@ -70,7 +72,7 @@ function useCompanion(companion) {
 
 // randomizes the size of the companion
 function randomCompanionSize(companion, amt) {
-  var companionSize = (Math.floor(Math.random()*amt))/10;
+  var companionSize = (Math.floor(Math.random() * amt)) / 10;
   companion.scaleX = 1 + companionSize;
   companion.scaleY = 1 + companionSize;
 }
@@ -78,17 +80,17 @@ function randomCompanionSize(companion, amt) {
 // resets all companions
 function resetAllCompanions() {
   var l = companionList.length;
-  for (var i=0;i<l;i++) {
+  for (var i = 0; i < l; i++) {
     var bmp = companionList[i];
     resetCompanion(bmp);
   }
 }
 
-//removes all companions from stage
+// removes all companions from stage
 function removeAllCompanions() {
   companionList = [];
   var l = companionList.length;
-  for (var i=0;i<l;i++) {
+  for (var i = 0; i < l; i++) {
     var bmp = companionList[i];
     stage.removeChild(bmp);
   }

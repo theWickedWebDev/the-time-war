@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-jscs": "^1.5.1"
+  }
+}

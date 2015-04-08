@@ -15,12 +15,14 @@ function handleKeyUp(event) {
 function handleClick() {
   canvas.onclick = null;
   stage.removeChild(gameTxt);
-  
+
   play = true;
 };
 
 function onMouseDown() {
-  if(!e){var e = window.event;}
+  if (!e) {
+    var e = window.event;
+  }
   clicked = true;
 };
 
